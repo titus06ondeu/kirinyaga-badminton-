@@ -5,9 +5,24 @@ import { Target, Users, Zap, Award } from "lucide-react";
 
 const About = () => {
   const team = [
-    { name: "Dr. James Mwangi", role: "Sports Director", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400" },
-    { name: "Coach Sarah Wanjiku", role: "Head Badminton Coach", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400" },
-    { name: "Tech Team Lead", role: "AI Systems Developer", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" },
+    { 
+      name: "Venah", 
+      role: "Female Badminton Captain", 
+      initial: "V",
+      description: "Leading the women's team with passion and dedication"
+    },
+    { 
+      name: "Emmanuel", 
+      role: "Male Badminton Captain", 
+      initial: "E",
+      description: "Guiding the men's team to excellence"
+    },
+    { 
+      name: "Titus", 
+      role: "PA to the Captains", 
+      initial: "T",
+      description: "Supporting team operations and coordination"
+    },
   ];
 
   const values = [
@@ -70,18 +85,16 @@ const About = () => {
             <h2 className="text-3xl font-bold mb-8 text-center text-primary">Meet Our Team</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {team.map((member, idx) => (
-                <Card key={idx} className="overflow-hidden bg-gradient-card border-border hover:border-primary transition-all group animate-fade-in-up">
-                  <div className="aspect-square overflow-hidden">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
+                <Card
+                  key={idx}
+                  className="p-6 bg-gradient-card border-border text-center hover:shadow-glow transition-all animate-fade-in-up group"
+                >
+                  <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-4xl font-bold text-white shadow-glow group-hover:shadow-glow-strong transition-all">
+                    {member.initial}
                   </div>
-                  <div className="p-6 text-center">
-                    <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{member.name}</h3>
-                    <p className="text-muted-foreground">{member.role}</p>
-                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-primary">{member.name}</h3>
+                  <p className="text-sm font-semibold text-foreground mb-2">{member.role}</p>
+                  <p className="text-sm text-muted-foreground">{member.description}</p>
                 </Card>
               ))}
             </div>

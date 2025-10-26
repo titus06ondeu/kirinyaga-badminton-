@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ModuleCard from "@/components/ModuleCard";
-import { Brain, Calendar, Camera, LineChart, ListChecks, Users } from "lucide-react";
+import { Brain, Calendar, Camera, LineChart, ListChecks, Users, Trophy } from "lucide-react";
 
 const Dashboard = () => {
   const modules = [
@@ -46,6 +46,13 @@ const Dashboard = () => {
       icon: Calendar,
       path: "/calendar",
       gradient: "from-indigo-500 to-violet-500",
+    },
+    {
+      title: "Leaderboard",
+      description: "See top performers and rankings",
+      icon: Trophy,
+      path: "/leaderboard",
+      gradient: "from-pink-500 to-rose-500",
     },
   ];
 

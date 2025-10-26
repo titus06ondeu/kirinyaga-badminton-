@@ -14,6 +14,8 @@ import Attendance from "./pages/Attendance";
 import Partners from "./pages/Partners";
 import Performance from "./pages/Performance";
 import CalendarView from "./pages/CalendarView";
+import Leaderboard from "./pages/Leaderboard";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +28,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contacts" element={<Contacts />} />
@@ -36,6 +39,7 @@ const App = () => (
           <Route path="/partners" element={<Partners />} />
           <Route path="/performance" element={<Performance />} />
           <Route path="/calendar" element={<CalendarView />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

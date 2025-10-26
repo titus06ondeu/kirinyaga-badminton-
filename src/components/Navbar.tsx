@@ -1,16 +1,22 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Image, Phone, Info, LayoutDashboard } from "lucide-react";
+import { Home, Image, Phone, Info, LayoutDashboard, Calendar, LogOut, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const Navbar = () => {
   const location = useLocation();
+  const { user, signOut } = useAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const links = [
     { name: "Home", path: "/", icon: Home },
+    { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+    { name: "Calendar", path: "/calendar", icon: Calendar },
     { name: "Gallery", path: "/gallery", icon: Image },
     { name: "Contacts", path: "/contacts", icon: Phone },
     { name: "About Us", path: "/about", icon: Info },
-    { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
   ];
 
   return (
@@ -18,12 +24,10 @@ const Navbar = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center shadow-glow group-hover:shadow-glow-strong transition-all">
-              <span className="text-white font-bold text-xl">KU</span>
+            <div className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-primary to-glow-secondary bg-clip-text text-transparent group-hover:scale-110 transition-transform" 
+                 style={{ fontFamily: 'Orbitron, sans-serif' }}>
+              KyU
             </div>
-            <span className="text-lg font-bold bg-gradient-to-r from-primary to-glow-secondary bg-clip-text text-transparent">
-              Sports AI
-            </span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-1">
@@ -51,8 +55,40 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* Mobile menu - simplified for now */}
-          <div className="md:hidden flex items-center space-x-2">
+          <div className="hidden md:flex items-center space-x-3">
+            {user ? (
+              <Button
+                onClick={signOut}
+                variant="outline"
+                size="sm"
+                className="border-primary/30 hover:bg-primary/10"
+              >
+                <LogOut className="mr-2" size={16} />
+                Logout
+              </Button>
+            ) : (
+              <Link to="/auth">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-primary/30 hover:bg-primary/10"
+                >
+                  Login
+                </Button>
+              </Link>
+            )}
+          </div>
+
+          <button
+            className="md:hidden text-foreground"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {mobileMenuOpen && (
+          <div className="md:hidden py-4 space-y-2 animate-fade-in">
             {links.map((link) => {
               const Icon = link.icon;
               const isActive = location.pathname === link.path;
@@ -60,17 +96,44 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
                   className={cn(
-                    "p-2 rounded-lg transition-all",
-                    isActive ? "text-primary shadow-glow" : "text-muted-foreground"
+                    "flex items-center space-x-3 px-4 py-3 rounded-lg transition-all",
+                    isActive
+                      ? "text-primary bg-primary/10 shadow-glow"
+                      : "text-muted-foreground hover:text-primary hover:bg-secondary"
                   )}
                 >
                   <Icon className="w-5 h-5" />
+                  <span className="font-medium">{link.name}</span>
                 </Link>
               );
             })}
+            
+            {user ? (
+              <Button
+                onClick={() => {
+                  signOut();
+                  setMobileMenuOpen(false);
+                }}
+                variant="outline"
+                className="w-full border-primary/30 hover:bg-primary/10"
+              >
+                <LogOut className="mr-2" size={16} />
+                Logout
+              </Button>
+            ) : (
+              <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>
+                <Button
+                  variant="outline"
+                  className="w-full border-primary/30 hover:bg-primary/10"
+                >
+                  Login
+                </Button>
+              </Link>
+            )}
           </div>
-        </div>
+        )}
       </div>
     </nav>
   );

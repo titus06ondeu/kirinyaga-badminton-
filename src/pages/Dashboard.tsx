@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ModuleCard from "@/components/ModuleCard";
-import { Brain, Calendar, Camera, LineChart, ListChecks, Users, Trophy } from "lucide-react";
+import { Brain, Calendar, Camera, LineChart, ListChecks, Users, Trophy, Mail } from "lucide-react";
 
 const Dashboard = () => {
   const modules = [
@@ -53,6 +53,13 @@ const Dashboard = () => {
       icon: Trophy,
       path: "/leaderboard",
       gradient: "from-pink-500 to-rose-500",
+    },
+    {
+      title: "Messages",
+      description: "View contact messages (Admin only)",
+      icon: Mail,
+      path: "/messages",
+      gradient: "from-teal-500 to-cyan-500",
     },
   ];
 

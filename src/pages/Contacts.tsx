@@ -7,14 +7,51 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100),
+  email: z.string().trim().email("Invalid email address").max(255),
+  message: z.string().trim().min(1, "Message is required").max(1000),
+});
 
 const Contacts = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent successfully! We'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    
+    try {
+      setIsSubmitting(true);
+      
+      // Validate input
+      const validated = contactSchema.parse(formData);
+      
+      // Insert message into database
+      const { error } = await supabase
+        .from("messages")
+        .insert({
+          name: validated.name,
+          email: validated.email,
+          message: validated.message,
+        });
+      
+      if (error) throw error;
+      
+      toast.success("Message sent successfully! We'll get back to you soon.");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast.error(error.errors[0].message);
+      } else {
+        toast.error("Failed to send message. Please try again.");
+        console.error("Error sending message:", error);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -70,8 +107,12 @@ const Contacts = () => {
                     className="bg-background border-border focus:border-primary transition-colors resize-none"
                   />
                 </div>
-                <Button type="submit" className="w-full bg-gradient-primary hover:shadow-glow transition-all shadow-glow">
-                  Send Message
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-primary hover:shadow-glow transition-all shadow-glow"
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </Card>

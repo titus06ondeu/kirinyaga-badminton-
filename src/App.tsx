@@ -16,6 +16,7 @@ import Performance from "./pages/Performance";
 import CalendarView from "./pages/CalendarView";
 import Leaderboard from "./pages/Leaderboard";
 import Auth from "./pages/Auth";
+import Messages from "./pages/Messages";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/performance" element={<Performance />} />
           <Route path="/calendar" element={<CalendarView />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/messages" element={<Messages />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

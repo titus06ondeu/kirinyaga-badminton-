@@ -56,6 +56,9 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-3">
+            <Link to="/about" className="text-xs text-muted-foreground hover:text-primary transition-colors duration-300 hover:shadow-glow px-2 py-1 rounded" title="About the creator">
+              Built with ❤️ by Titus
+            </Link>
             {user ? (
               <Button
                 onClick={signOut}
@@ -109,6 +112,10 @@ const Navbar = () => {
                 </Link>
               );
             })}
+            
+            <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="text-xs text-muted-foreground hover:text-primary transition-colors duration-300 px-4 py-2">
+              Built with ❤️ by Titus
+            </Link>
             
             {user ? (
               <Button

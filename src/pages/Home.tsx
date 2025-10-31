@@ -13,16 +13,17 @@ const Home = () => {
       <main className="pt-24 pb-12">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12 animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 relative inline-block">
-              <span className="bg-gradient-to-r from-primary via-glow-secondary to-primary bg-clip-text text-transparent animate-glow-pulse">
-                Kirinyaga University
-              </span>
-              <br />
-              <span className="text-3xl md:text-5xl text-foreground mt-2 block">
-                Smart Sports AI Coach & Planner
-              </span>
-              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-primary rounded-full shadow-glow" />
-            </h1>
+            <div className="glassy-header inline-block">
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 relative">
+                <span className="bg-gradient-to-r from-primary via-glow-secondary to-primary bg-clip-text text-transparent animate-glow-pulse">
+                  Kirinyaga University
+                </span>
+                <br />
+                <span className="text-3xl md:text-5xl text-white mt-2 block">
+                  Smart Sports AI Coach & Planner
+                </span>
+              </h1>
+            </div>
           </div>
 
           <ImageSlider />
